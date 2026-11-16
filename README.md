@@ -30,9 +30,24 @@ Overall conversion by device: desktop 7.0%, mobile 7.5%, tablet 6.7%.
 
 *Caveats: the dataset is a partially obfuscated sample, and this funnel counts users at each step without checking that they went through every previous step in order.*
 
+## Seasonality: Black Friday and Cyber Monday
+Compared with an average day in early November (≈750 product viewers, ≈5.5% conversion, ≈$3,200 revenue):
+
+| Day | Product viewers | Conversion | Revenue |
+| --- | --- | --- | --- |
+| Black Friday (Nov 27) | 827 (+10%) | 10.8% (×2) | $6,699 (×2.1) |
+| Cyber Monday (Nov 30) | 1,117 (+49%) | 11.3% (×2.1) | $11,990 (×3.8) |
+
+- On Black Friday, traffic barely increases, but **conversion doubles**: the revenue gain comes from existing visitors buying more, not from more visitors.
+- Cyber Monday combines more traffic **and** higher conversion, nearly quadrupling daily revenue.
+- Revenue collapses around December 20, consistent with the last shipping date before Christmas.
+- Takeaway: the main lever is **converting existing visitors better**, which is consistent with the checkout drop identified in the funnel.
+
 ## Queries
 - [`sql/01_funnel_overall.sql`](sql/01_funnel_overall.sql) — funnel on the whole period
 - [`sql/02_funnel_by_device.sql`](sql/02_funnel_by_device.sql) — funnel by device
+- [`sql/03_daily_trend.sql`](sql/03_daily_trend.sql) — daily viewers, buyers, conversion and revenue
+
 
 ## Next steps
 - Funnel by country, traffic source, and before/after Black Friday
