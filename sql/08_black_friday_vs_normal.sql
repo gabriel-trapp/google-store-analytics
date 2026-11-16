@@ -1,3 +1,6 @@
+-- Conversion over Black Friday – Cyber Monday (Nov 27–30) vs normal days (Nov 1–20)
+-- Distinct users per period; these counts feed the significance test in Python.
+
 WITH periods AS (SELECT CASE WHEN event_date BETWEEN '20201101' AND '20201120' THEN 'normal'
             WHEN event_date BETWEEN '20201127' AND '20201130' THEN 'bf_cm' END AS period,
        COUNT(DISTINCT event_date) AS nb_days,

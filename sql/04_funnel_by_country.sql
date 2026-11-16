@@ -1,3 +1,6 @@
+-- Purchase funnel for the top 10 countries (by product viewers)
+-- One row per country, one column per funnel step, plus overall conversion rate (%).
+
 SELECT geo.country AS country, 
     COUNT(DISTINCT CASE WHEN event_name = 'view_item'        THEN user_pseudo_id END) AS views,
     COUNT(DISTINCT CASE WHEN event_name = 'add_to_cart'      THEN user_pseudo_id END) AS add_to_carts,

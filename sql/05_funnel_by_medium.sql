@@ -1,3 +1,6 @@
+-- Purchase funnel by traffic source (medium of the user's first visit)
+-- One row per medium, one column per funnel step, plus overall conversion rate (%).
+
 WITH medium_funnel AS (
   SELECT
     traffic_source.medium AS medium,

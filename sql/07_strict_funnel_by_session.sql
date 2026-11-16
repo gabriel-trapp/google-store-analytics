@@ -1,3 +1,6 @@
+-- Strict session-level funnel: counts sessions that go through every step, in order
+-- Uses the first time each step happens in a session; ties (same timestamp) are accepted.
+
 WITH events AS (
   SELECT 
     CONCAT(user_pseudo_id, '-', CAST((SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS STRING)) AS session_id, 

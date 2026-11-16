@@ -1,4 +1,5 @@
 -- Daily trend: product viewers, buyers, conversion rate and revenue
+
 WITH daily AS (
   SELECT
     PARSE_DATE('%Y%m%d', event_date) AS day,
