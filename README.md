@@ -9,12 +9,13 @@ One row per event (page view, product view, add to cart, purchase…).
 
 ## Tools
 SQL (BigQuery): conditional aggregation, CTEs, `UNNEST` on nested GA4 parameters, session-level funnel.
+Python (pandas, SciPy, statsmodels): two-proportion z-tests, confidence intervals, Bonferroni correction.
 
 ## Key findings
 1. **Most visitors never reach the funnel.** Only about 23% of visitors (61,252 out of 270,154) view at least one product page.
 2. **Only 7.2% of product viewers buy**, and the most unusual loss happens at checkout: 4 in 10 users who start checking out leave before entering their payment details, on every device. This makes the checkout process the **first candidate for an A/B test**.
 3. **Many purchases take several visits.** Measured within a single session, conversion falls to 3.6%, and almost all the gap sits between cart and checkout: visitors add items in one visit and come back later to buy. Cart-recovery features (saved carts, reminder emails) could be valuable.
-4. **Black Friday – Cyber Monday raised conversion from 6.2% to 10.3%.**
+4. **Black Friday – Cyber Monday raised conversion from 6.2% to 10.3%** (+4.2 pts, 95% CI +3.0 to +5.3; z = 8.4, p < 0.001).
 5. **Paid ads convert the least** (4.8%), while referral traffic converts the most (8.1%).
 
 ## 1. Purchase funnel
@@ -32,7 +33,7 @@ Users reaching each step (distinct users, whole period):
 - Overall conversion by device: desktop 7.0%, mobile 7.5%, tablet 6.7%. The checkout drop is almost identical across devices, which suggests the issue lies in the checkout process itself (e.g. unexpected shipping costs or a mandatory account) rather than in the mobile experience.
 
 ## 2. Funnel by country
-Conversion rates across the top 10 countries range from 5.7% (Italy) to 7.7% (France), a wider spread than across devices (6.7% to 7.5%). The United States accounts for about 44% of product viewers, so it drives the overall rate. However, smaller markets like Italy have few purchasers, so these differences need a significance test before drawing conclusions.
+Conversion rates across the top 10 countries range from 5.7% (Italy) to 7.7% (France), a wider spread than across devices (6.7% to 7.5%). The United States accounts for about 44% of product viewers, so it drives the overall rate. A significance test shows that even the widest gap, France vs Italy, is not significant (p = 0.07): conversion is essentially the same across the top 10 countries.
 
 ## 3. Funnel by traffic source
 Medium of the user's first visit (`traffic_source.medium`):
@@ -90,7 +91,7 @@ Conversion rose from 6.2% to 10.3%. Since the shorter window gives the promotion
 - The dataset is a partially obfuscated sample.
 - Funnels 1 to 3 count users at each step without checking that they went through every previous step in order (see the strict funnel in section 4).
 - Traffic-source groups overlap: some users appear under several mediums, so the groups cannot be added up.
-- Differences between countries, devices and periods have not yet been tested for statistical significance.
+- The Black Friday comparison is observational (not randomized), and a user can appear in both periods.
 
 ## Queries
 - [`sql/01_funnel_overall.sql`](sql/01_funnel_overall.sql) — funnel on the whole period
@@ -101,8 +102,9 @@ Conversion rose from 6.2% to 10.3%. Since the shorter window gives the promotion
 - [`sql/06_sessions_overview.sql`](sql/06_sessions_overview.sql) — users, sessions and sessions per user
 - [`sql/07_strict_funnel_by_session.sql`](sql/07_strict_funnel_by_session.sql) — session-level funnel, steps in order
 - [`sql/08_black_friday_vs_normal.sql`](sql/08_black_friday_vs_normal.sql) — conversion over Black Friday – Cyber Monday vs normal days
+## Notebooks
+- [`notebooks/01_significance.ipynb`](notebooks/01_significance.ipynb) — significance tests: Black Friday vs normal days, conversion by country
 
 ## Next steps
-- Statistical tests on the differences observed (Black Friday, countries, devices)
 - Sample size needed for an A/B test on the checkout
 - Charts in Python

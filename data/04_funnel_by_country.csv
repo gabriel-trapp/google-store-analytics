@@ -1,0 +1,11 @@
+country,views,add_to_carts,checkouts,payment_infos,purchases,conversion_rate
+United States,26953,5603,4310,2516,1942,7.2
+India,5795,1162,878,524,406,7.0
+Canada,4653,993,764,465,355,7.6
+United Kingdom,1941,398,297,170,137,7.1
+France,1205,234,187,119,93,7.7
+Spain,1119,232,196,108,84,7.5
+China,1049,224,157,79,68,6.5
+Taiwan,1033,208,150,98,72,7.0
+Germany,1019,193,166,102,74,7.3
+Italy,878,164,126,61,50,5.7
